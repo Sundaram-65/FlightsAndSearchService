@@ -1,54 +1,53 @@
-const {City}=require('../models/index')
+const { City } = require('../models/index');
 
-class CityRepository{
-    async createCity({name}){
-
-        try{
-            const city=await City.create({name});
+class CityRepository {
+    async createCity({ name }) {
+        try {
+            const city = await City.create({ name });
             return city;
-        }catch(error){
+        } catch (error) {
             console.log('Something went wrong in the repository layer');
-            throw {error};
+            throw error;
         }
     }
-    async deleteCity({cityid}){
-        try{
-            const city=await City.distroy({
-                where:{
-                    id:cityid
+
+    async deleteCity(cityid) {
+        try {
+            const city = await City.destroy({
+                where: {
+                    id: cityid
                 }
             });
             return city;
-        }catch(error){
+        } catch (error) {
             console.log('Something went wrong in the repository layer');
-            throw {error};
+            throw error;
         }
     }
-    async update(data,cityid){
 
-        try{
-            const city =City.update(data,{
-            where:{
-                id:cityid
-            }
-        })
-        }
-        catch(error){
-            console.log('Something went wrong in the repository layer');
-            throw {error};
-        }
-           
-    }
-    async getCity(cityid){
-
-        try{
-            const city=await City.findBypk(cityid);
+    async update(data, cityid) {
+        try {
+            const city = await City.update(data, {
+                where: {
+                    id: cityid
+                }
+            });
             return city;
-        }
-        catch(error){
+        } catch (error) {
             console.log('Something went wrong in the repository layer');
-            throw {error};
+            throw error;
+        }
+    }
+
+    async getCity(cityid) {
+        try {
+            const city = await City.findByPk(cityid);
+            return city;
+        } catch (error) {
+            console.log('Something went wrong in the repository layer');
+            throw error;
         }
     }
 }
-module.exports=CityRepository;
+
+module.exports = CityRepository;
