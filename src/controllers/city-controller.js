@@ -53,7 +53,7 @@ const update =async(req,res)=>{
         return res.status(201).json({
             data:city,
             success:true,
-            message:'Successfully created a city',
+            message:'Successfully updated city',
             err:{}
         })
     } catch (error) {
