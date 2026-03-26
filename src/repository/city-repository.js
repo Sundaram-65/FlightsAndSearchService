@@ -27,11 +27,17 @@ class CityRepository {
 
     async updateCity(data, cityid) {
         try {
-            const city = await City.update(data, {
-                where: {
-                    id: cityid
-                }
-            });
+            // const city = await City.update(data, {
+            //     where: {
+            //         id: cityid
+            //     }
+            // });
+            // return city;
+            // In pgsql there is returning :true which work and give updated data
+
+            // If we want updated data we use the below approach
+            const city=await City.findByPk(cityid);
+            city.name=data.name;
             return city;
         } catch (error) {
             console.log('Something went wrong in the repository layer');
@@ -43,6 +49,17 @@ class CityRepository {
         try {
             const city = await City.findByPk(cityid);
             return city;
+        } catch (error) {
+            console.log('Something went wrong in the repository layer');
+            throw error;
+        }
+    }
+
+    async getAllCities(){
+        try {
+            
+            const cities=City.findAll();
+            return cities;
         } catch (error) {
             console.log('Something went wrong in the repository layer');
             throw error;
