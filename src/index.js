@@ -1,12 +1,13 @@
 const express=require('express');
 const {PORT}=require('./config/serverConfig')
-const {City}=require('./models/index')
+// const {City}=require('./models/index')
 const bodyParser=require('body-parser')
 
 // const CityRepository=require('./repository/city-repository')
 
 const ApiRoutes = require('./routes/index');
 
+const {Airport,City}=require('./models/index')
 const setupAndStartServer=async ()=>{
 
     const app=express();
@@ -23,6 +24,10 @@ const setupAndStartServer=async ()=>{
         // repo.createCity({name:'Delhi'});
     
         // // repo.deleteCity(3);
+        // const airports=await Airport.findAll({
+        //     include:City
+        // }) 
+        // console.log(airports)
     })
 
 }
