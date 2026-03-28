@@ -53,5 +53,26 @@ class CityService{
             throw error;
         }
     }
+    async addMultipleCities(cities){
+    
+            try {
+                const result=await this.CityRepository.addMultipleCities(cities);
+                return result;
+            } catch (error) {
+                console.log('Something went wrong in the service layer');
+                throw error;
+            }
+    }
+    async getAllairports(cityId){
+    
+            try {
+                const city=await this.CityRepository.getCity(cityId);
+                const airports=await city.getAirports();
+                return airports;
+            } catch (error) {
+                console.log('Something went wrong in the service layer');
+                throw error;
+            }
+    }
 }
 module.exports=CityService

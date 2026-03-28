@@ -117,10 +117,44 @@ const getAll =async (req,res)=>{
 
 }
 
+const addMulCities= async (req,res)=>{
+
+        try {
+            const response=await cityService.addMultipleCities(req.body.cities);
+            return res.status(201).json({
+                data:response,
+                success:true,
+                message:'Successfully added a city',
+                err:{}
+            })
+        } catch (error) {
+            console.log('Not able to add multiple cities');
+            throw error;
+        }
+    }
+
+    const getAllairports= async (req,res)=>{
+
+        try {
+            const response=await cityService.getAllairports(req.params.id);
+            return res.status(201).json({
+                data:response,
+                success:true,
+                message:'Successfully fetched airports',
+                err:{}
+            })
+        } catch (error) {
+            console.log('Not able to fetch airports');
+            throw error;
+        }
+    }
+
 module.exports={
     create,
     destroy,
     update,
     get,
-    getAll
+    getAll,
+    addMulCities,
+    getAllairports
 }
