@@ -31,6 +31,7 @@ router.patch('/airport/:id',AirportController.updateAirport);
 router.post('/flight',FlightController.createFlight);
 router.delete('/flight/:id',FlightController.deleteFlight);
 router.get('/flight/:id',FlightController.getFlight);
+router.get('/flight',FlightController.getAllFlight);
 router.patch('/flight/:id',FlightController.updateFlight);
 
 

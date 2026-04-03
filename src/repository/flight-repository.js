@@ -1,7 +1,42 @@
+const {Op}=require('sequelize')
 const {Flight}=require('../models/index')
 
 class FightRepository{
     // create
+
+    #createFilter(data) {
+        let filter = {};
+
+        if (data.arrivalAirportId) {
+            filter.arrivalAirportId = data.arrivalAirportId;
+        }
+
+        if (data.departureAirportId) {
+            filter.departureAirportId = data.departureAirportId;
+        }
+
+        //  price filter (correct way)
+        if (data.minPrice || data.maxPrice) {
+            filter.price = {};
+            
+            if (data.minPrice) {
+                filter.price[Op.gte] = data.minPrice;    
+            }
+
+            if (data.maxPrice) {
+                filter.price[Op.lte] = data.maxPrice;
+            }
+        }
+
+        // filter = {
+        //     price: {
+        //         [Op.gte]: 1000,
+        //         [Op.lte]: 5000
+        //     }
+        // }
+        return filter;
+        
+}
     async createFlight(data){
 
         try {
@@ -56,7 +91,23 @@ class FightRepository{
             console.log('Something went wrong in repository layer');
             throw error;
         }
+    }
+
+    // allFlights
+    async getAllFlight(filter){
+
+        try {
+            const fliterObject=this.#createFilter(filter);
+
+            const flights=await Flight.findAll({
+                where:fliterObject
+            });
+            return flights;
+        } catch (error) {
+           console.log('Something went wrong in repository layer');
+           throw error;
         }
+    }
     
     // update
     async updateFlight(data,flightId){

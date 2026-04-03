@@ -61,6 +61,24 @@ const getFlight=async (req,res)=>{
         })
     }
 }
+const getAllFlight=async (req,res)=>{
+    try {
+        const response=await flightService.getAllFlight(req.query);
+        return res.status(200).json({
+            data:response,
+            sucess:true,
+            message:'Successfully fetched a flight',
+            err:{}
+        })
+    } catch (error) {
+        return res.status(500).json({
+            data:{},
+            success:false,
+            message:"Not able to fetch flight",
+            err:error
+        })
+    }
+}
 
 // update
 const updateFlight=async (req,res)=>{
@@ -88,5 +106,6 @@ module.exports={
     createFlight,
     deleteFlight,
     getFlight,
-    updateFlight
+    updateFlight,
+    getAllFlight
 }
