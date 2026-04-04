@@ -1,12 +1,12 @@
 const {FlightService}=require('../services/index')
-
+const {SuccessCodes}=require('../utils/error-codes')
 const flightService=new FlightService();
 
 //create
 const createFlight=async (req,res)=>{
     try {
         const response=await flightService.createFlight(req.body);
-        return res.status(201).json({
+        return res.status(SuccessCodes.CREATED).json({
             data:response,
             success:true,
             message:'Successfully added a flight',
@@ -26,7 +26,7 @@ const createFlight=async (req,res)=>{
 const deleteFlight=async (req,res)=>{
     try {
         const response=await flightService.deleteFlight(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.OK).json({
             data:response,
             sucess:true,
             message:'Successfully deleted a flight',
